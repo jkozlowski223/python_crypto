@@ -2,6 +2,10 @@
 movie_dec.webm
 movie.enc
 movie.webm
+build/
+
+f1.webm
+f2.webm
 
 tdes.iv
 tdes.key
