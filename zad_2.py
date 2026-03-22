@@ -9,11 +9,11 @@ ENC_FILE = Path("movie.enc")
 DEC_FILE = Path("movie_dec.webm")
 
 def process_aes_cfb():
-    key = get_random_bytes(32)  
+    key = get_random_bytes(16)  
     my_iv = get_random_bytes(16)
     chunk_size = 64 * 1024  
 
-    enc_cipher = AES.new(key, AES.MODE_CFB, IV=my_iv)
+    enc_cipher = AES.new(key, AES.MODE_CFB, IV=my_iv, segment_size=128)
     enc_start = perf_counter()
     
     with open(IN_FILE, 'rb') as f_in, open(ENC_FILE, 'wb') as f_out:
@@ -25,7 +25,7 @@ def process_aes_cfb():
             
     enc_time = perf_counter() - enc_start
 
-    dec_cipher = AES.new(key, AES.MODE_CFB, IV=my_iv)
+    dec_cipher = AES.new(key, AES.MODE_CFB, IV=my_iv, segment_size=128)
     dec_start = perf_counter()
     
     with open(ENC_FILE, 'rb') as f_enc, open(DEC_FILE, 'wb') as f_dec:
